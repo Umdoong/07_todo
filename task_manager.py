@@ -1,3 +1,25 @@
+import json
+import os
+#작업을 저장할 파일 경로
+TASK_FILE = './tasks.json'
+
+def load_tasks():
+    if os.path.exists(TASK_FILE): # 경로에 이 파일이 있으면
+        with open(TASK_FILE, 'r', encoding='utf-8') as file:
+            return json.load(file)
+    return []
+
+def save_tasks(tasks):
+    with open(TASK_FILE, 'w', encoding='utf-8') as file:
+        json.dump(tasks, file, ensure_ascii=False, indent=4)
+
+def add_task(task_name):
+    tasks = load_tasks() #  => tasks = json.load(file)
+    task = {'name': task_name, 'completed': False}
+    tasks.append(task)
+    save_tasks(tasks)
+    print(f'{task_name} 작업이 추가 되었습니다.')
+
 def view_tasks():
     pass
 
@@ -7,8 +29,6 @@ def complete_task(task_number):
 def delete_task(task_number):
     pass
 
-def add_task(task_name):
-    pass
 
 def show_menu():
     print("작업 관리 애플리케이션")
